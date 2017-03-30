@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yang.database.view.MemberOverviewController">
+   <children>
+      <TableView fx:id="memberTable" prefHeight="450.0" prefWidth="900.0">
+        <columns>
+          <TableColumn fx:id="lastNameColumn" prefWidth="150.0" text="Last Name" />
+          <TableColumn fx:id="firstNameColumn" prefWidth="150.0" text="First Name" />
+            <TableColumn fx:id="genderAndGradeColumn" prefWidth="150.0" text="Gender &amp; Grade" />
+            <TableColumn fx:id="emailColumn" prefWidth="150.0" text="Email" />
+            <TableColumn fx:id="phoneNumberColumn" prefWidth="150.0" text="Phone Number" />
+            <TableColumn fx:id="shirtSizeColumn" prefWidth="150.0" text="Shirt Size" />
+        </columns>
+      </TableView>
+      <ButtonBar layoutX="268.0" layoutY="450.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button mnemonicParsing="false" onAction="#handleNewMember" text="New" />
+            <Button mnemonicParsing="false" onAction="#handleEditMember" text="Edit" />
+            <Button mnemonicParsing="false" onAction="#handleDeleteMember" text="Delete" />
+            <Button mnemonicParsing="false" onAction="#handleExportMember" text="Export" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

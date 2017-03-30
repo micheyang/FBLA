@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yang.database.view.LeadershipInfoController">
+   <children>
+      <ImageView fx:id="portrait" fitHeight="215.0" fitWidth="222.0" layoutX="221.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" />
+      <ChoiceBox fx:id="chooseAPosition" layoutX="225.0" layoutY="298.0" prefWidth="150.0" />
+      <ButtonBar layoutX="386.0" layoutY="346.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button mnemonicParsing="false" onAction="#handleOk" text="Exit" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>

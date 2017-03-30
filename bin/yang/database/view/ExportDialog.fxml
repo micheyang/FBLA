@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="200.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yang.database.view.ExportDialogController">
+   <children>
+      <TextField fx:id="selectedInformation" layoutX="50.0" layoutY="124.0" prefHeight="31.0" prefWidth="391.0" />
+      <Label layoutX="50.0" layoutY="30.0" text="Select the information to copy" />
+      <RadioButton fx:id="email" layoutX="50.0" layoutY="64.0" mnemonicParsing="false" text="Email" />
+      <RadioButton fx:id="shirtSize" layoutX="342.0" layoutY="64.0" mnemonicParsing="false" text="Shirt Size" />
+      <ButtonBar layoutX="386.0" layoutY="146.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+            <Button mnemonicParsing="false" onAction="#handleDone" text="Done" />
+        </buttons>
+      </ButtonBar>
+   </children>
+</AnchorPane>
