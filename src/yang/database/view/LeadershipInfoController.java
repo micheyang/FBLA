@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 public class LeadershipInfoController {
 
+	//@FXML modifiers help the loader put the FXML files that we've created in SceneBuilder into this controller
 	@FXML
 	private ImageView portrait;
 	@FXML
@@ -26,12 +27,16 @@ public class LeadershipInfoController {
 	private Stage dialogStage;
 	private boolean okClicked = false;
 
+	//Called right after the FXML file is loaded
 	public void initialize() {
 
 	}
 
-	//Sets the new dialog stage for the FMXL file to appear in
-
+	/**
+	 * Sets the new dialog stage for the FMXL file to appear in
+	 *
+	 * @param dialogStage	provides the setting for the dialog to appear on
+	 */
 	public void setDialogStage(Stage dialogStage) {
 	    this.dialogStage = dialogStage;
 	}

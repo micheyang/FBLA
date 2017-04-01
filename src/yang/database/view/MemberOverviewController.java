@@ -17,149 +17,150 @@ import yang.database.model.Member;
 
 public class MemberOverviewController {
 
-	//Private modifiers are used for encapsulation.
-		//In order for the loader to put what we've made in the FXML files into the controller, @FXML modifiers are needed
-		//The following are generics because they can take in multiple data types which are specified in the <>
-		@FXML
-		private TableView<Member> memberTable;
-		@FXML
-		private TableColumn<Member, String> lastNameColumn;
-		@FXML
-		private TableColumn<Member, String> firstNameColumn;
-		@FXML
-		private TableColumn<Member, String> genderAndGradeColumn;
-		@FXML
-		private TableColumn<Member, String> emailColumn;
-		@FXML
-		private TableColumn<Member, String> phoneNumberColumn;
-		@FXML
-		private TableColumn<Member, String> shirtSizeColumn;
+	//@FXML modifiers help the loader put the FXML files that we've created in SceneBuilder into this controller
+	//Generics are used because they can take in the data types specified in the <>
+	@FXML
+	private TableView<Member> memberTable;
+	@FXML
+	private TableColumn<Member, String> lastNameColumn;
+	@FXML
+	private TableColumn<Member, String> firstNameColumn;
+	@FXML
+	private TableColumn<Member, String> genderAndGradeColumn;
+	@FXML
+	private TableColumn<Member, String> emailColumn;
+	@FXML
+	private TableColumn<Member, String> phoneNumberColumn;
+	@FXML
+	private TableColumn<Member, String> shirtSizeColumn;
 
-		//As a field, the main application passes a reference of itself to the controller
-		private mainApp mainApp;
+	//Since it's a field, the main application can pass a reference of itself to the controller
+	private mainApp mainApp;
 
-		//The loader needs this empty constructor because it locates this first
-		//Afterwards, it will call initialize() if it has @FXML before it
-		public MemberOverviewController() {
+	//First the loader locates this empty constructor, then it calls initialize() if it has @FXML before it
+	public MemberOverviewController() {
+
+	}
+
+	//Called right after the FXML file is loaded
+	@FXML
+	private void initialize() {
+
+		//Creation of the columns in the memberTable
+		lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().memberLastNameProperty());
+		firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().memberFirstNameProperty());
+		genderAndGradeColumn.setCellValueFactory(cellData -> cellData.getValue().memberGenderAndGradeProperty());
+		emailColumn.setCellValueFactory(cellData -> cellData.getValue().memberEmailProperty());
+		phoneNumberColumn.setCellValueFactory(cellData -> cellData.getValue().memberPhoneNumberProperty());
+		shirtSizeColumn.setCellValueFactory(cellData -> cellData.getValue().memberShirtSizeProperty());
+
+	}
+
+	/**
+	 * Sets the field for the controller to the mainApp so it can have a pointer to itself
+	 *
+	 * @param mainApp	passes in the main application
+	 */
+	public void setMainApp(mainApp mainApp) {
+
+		this.mainApp = mainApp;
+
+		//Sets passes of the mainApp's pointer into the memberTable after receiving the members' information from the list
+		memberTable.setItems(mainApp.getMemberList());
+
+	}
+
+	//The following are the methods for all of the buttons.
+
+	/*
+	Testing how to add in a basic button
+	@FXML
+    private void handleExportMember() {
+        //Item tempItem = new Item();
+        boolean okClicked = mainApp.showExportDialog();
+        if (okClicked) {
+            //mainApp.getSalesRecord().add(tempItem);
+        }
+    }
+    */
+
+	//Called when the Export button is pressed and a member is selected
+	//Extracts the member's email and t-shirt size and puts them into a dialog box with two radio buttons and a text field
+	@FXML
+    private void handleExportMember() {
+        Member selectedMember = memberTable.getSelectionModel().getSelectedItem();
+        if (selectedMember != null) {
+            boolean okClicked = mainApp.showExportDialog(selectedMember);
+            if (okClicked) {
+            }
+
+        } else {
+            //When a member isn't selected, the following alert is displayed
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Member Selected");
+            alert.setContentText("Please select a member in the table to export their information.");
+
+            alert.showAndWait();
+
+        }
+    }
+
+	//Called when the New button is pressed
+	//Opens the dialog box that asks for all of the member's information to be entered into text fields
+    @FXML
+    private void handleNewMember() {
+        Member tempMember = new Member();
+        boolean okClicked = mainApp.showMemberEditDialog(tempMember);
+        if (okClicked) {
+	            mainApp.getMemberList().add(tempMember);
+        }
+    }
+
+	//Called when the Edit button is pressed and a member is selected
+    //Opens the dialog box with all of the member's current information set into text fields to be changed
+    @FXML
+    private void handleEditMember() {
+        Member selectedMember = memberTable.getSelectionModel().getSelectedItem();
+        if (selectedMember != null) {
+            boolean okClicked = mainApp.showMemberEditDialog(selectedMember);
+            if (okClicked) {
+            }
+
+        } else {
+        	//When a member isn't selected, the following alert is displayed
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No Member Selected");
+            alert.setContentText("Please select a member in the table to edit their information.");
+
+            alert.showAndWait();
+
+        }
+    }
+
+    //Called when the Delete button is pressed and a member is selected
+    //Selected member is removed from the member list
+    @FXML
+    private void handleDeleteMember(){
+    	int selectedIndex = memberTable.getSelectionModel().getSelectedIndex();
+    	if (selectedIndex >=0) {
+    	memberTable.getItems().remove(selectedIndex);
+
+    	} else {
+    		//When a member isn't selected, the following alert is displayed
+    		Alert alert = new Alert(AlertType.WARNING);
+    		alert.initOwner(mainApp.getPrimaryStage());
+    		alert.setTitle("No Selection Made");
+    		alert.setHeaderText("No Member Selected");
+    		alert.setContentText("Please select a member in the table to delete their information.");
+
+    		alert.showAndWait();
 
 		}
 
-		@FXML
-		private void initialize() {
-
-			//Once the loader gets to the constructor, this method is always called right after
-			//We use it to create the columns of the salesRecord information
-
-			lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().memberLastNameProperty());
-			firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().memberFirstNameProperty());
-			genderAndGradeColumn.setCellValueFactory(cellData -> cellData.getValue().memberGenderAndGradeProperty());
-			emailColumn.setCellValueFactory(cellData -> cellData.getValue().memberEmailProperty());
-			phoneNumberColumn.setCellValueFactory(cellData -> cellData.getValue().memberPhoneNumberProperty());
-			shirtSizeColumn.setCellValueFactory(cellData -> cellData.getValue().memberShirtSizeProperty());
-
-		}
-
-		//@param mainApp
-		public void setMainApp(mainApp mainApp) {
-
-			//Once the main application is passed in, this method sets the field for the controller to it
-			//Therefore, it can have a pointer to itself because the main application's pointer is set in the controller's field
-			this.mainApp = mainApp;
-
-			//The following receives the SalesRecord items and sets those passes of the main application's pointer into the itemTable
-			memberTable.setItems(mainApp.getMemberList());
-		}
-
-
-		/*
-		 * This was to test if I could add in this button.
-		@FXML
-	    private void handleExportMember() {
-	        //Item tempItem = new Item();
-	        boolean okClicked = mainApp.showExportDialog();
-	        if (okClicked) {
-	            //mainApp.getSalesRecord().add(tempItem);
-	        }
-	    }
-	    */
-		@FXML
-	    private void handleExportMember() {
-	        Member selectedMember = memberTable.getSelectionModel().getSelectedItem();
-	        if (selectedMember != null) {
-	            boolean okClicked = mainApp.showExportDialog(selectedMember);
-	            if (okClicked) {
-	            	//showItemDetails(selectedItem);
-	            }
-
-	        } else {
-	            //When nothing is selected, the following alert is displayed
-	            Alert alert = new Alert(AlertType.WARNING);
-	            alert.initOwner(mainApp.getPrimaryStage());
-	            alert.setTitle("No Selection");
-	            alert.setHeaderText("No Member Selected");
-	            alert.setContentText("Please select a member in the table to export their information.");
-
-	            alert.showAndWait();
-
-	        }
-	    }
-
-		//The following is the Item Editing Dialog Control section for buttons
-
-		//This method is called whenever a user asks to add a new person--clicks the new button
-		    @FXML
-		    private void handleNewMember() {
-		        Member tempMember = new Member();
-		        boolean okClicked = mainApp.showMemberEditDialog(tempMember);
-		        if (okClicked) {
-		            mainApp.getMemberList().add(tempMember);
-		        }
-		    }
-
-			//This method handles the editing of an Item
-		    @FXML
-		    private void handleEditMember() {
-		        Member selectedMember = memberTable.getSelectionModel().getSelectedItem();
-		        if (selectedMember != null) {
-		            boolean okClicked = mainApp.showMemberEditDialog(selectedMember);
-		            if (okClicked) {
-		            	//showMemberDetails(selectedMember);
-		            }
-
-		        } else {
-		            //When nothing is selected, the following alert is displayed
-		            Alert alert = new Alert(AlertType.WARNING);
-		            alert.initOwner(mainApp.getPrimaryStage());
-		            alert.setTitle("No Selection");
-		            alert.setHeaderText("No Member Selected");
-		            alert.setContentText("Please select a member in the table to edit their information.");
-
-		            alert.showAndWait();
-
-		        }
-		    }
-
-		    //This method handles the delete button
-		    @FXML
-		    private void handleDeleteMember(){
-		    	int selectedIndex = memberTable.getSelectionModel().getSelectedIndex();
-
-		    	//tutorial note: added error handling code after initial build of this method
-		    	if (selectedIndex >=0) {
-		    	memberTable.getItems().remove(selectedIndex);
-
-		    	} else {
-		    		//When nothing is selected, the following alert is displayed
-		    		Alert alert = new Alert(AlertType.WARNING);
-		    		alert.initOwner(mainApp.getPrimaryStage());
-		    		alert.setTitle("No Selection Made");
-		    		alert.setHeaderText("No Member Selected");
-		    		alert.setContentText("Please select a member in the table to delete their information.");
-
-		    		alert.showAndWait();
-
-		    	}
-
-		    }
+    }
 
 }

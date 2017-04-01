@@ -37,7 +37,11 @@ public class ExportDialogController {
 
 	}
 
-	//Extracts the email and t-shirt information to be exported to an external program
+	/**
+	 * Extracts the email and t-shirt information to be exported to an external program
+	 *
+	 * @param member	retrieves the information of the selected member
+	 */
 	public void getInfo(Member member) {
 
 		//Puts the two RadioButtons into one ToggleGroup so that their actions relate to each other
@@ -69,12 +73,16 @@ public class ExportDialogController {
 
 	}
 
-	//Sets the new dialog stage for the FMXL file to appear in
+	/**
+	 * Sets the new dialog stage for the FMXL file to appear in
+	 *
+	 * @param dialogStage	provides the setting for the dialog to appear on
+	 */
 	public void setDialogStage(Stage dialogStage) {
 	    this.dialogStage = dialogStage;
 	}
 
-	//Called by the mainApp at the end of the method that runs this class and its FXML file
+	//Lets the mainApp know that the Done button was clicked
 	public boolean isDoneClicked() {
 	   	return doneClicked;
 	}

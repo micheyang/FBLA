@@ -45,7 +45,7 @@ public class mainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
 
-    //Defult constructor with initial data
+    //Default constructor with initial data
     public mainApp() {
     	memberList.add(new Member("Duncan", "Don", "M9", "don@gmail.com", "123-123-1234", "Medium"));
     	memberList.add(new Member("Evans", "Elle", "F10", "ellee@gmail.com", "234-234-2345", "Small"));
@@ -91,7 +91,11 @@ public class mainApp extends Application {
 
     }
 
-    //Standard JavaFX main loop that calls Launch(args)
+    /**
+     * Standard JavaFX main loop that calls Launch(args)
+     *
+     * @param args	passes in the array of Strings
+     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -159,7 +163,11 @@ public class mainApp extends Application {
         return primaryStage;
     }
 
-    //Gives the hook to the memberList object
+    /**
+     * Gives the hook to the memberList object
+     *
+     * @return	gives the member list as an observable list
+     */
     public ObservableList<Member> getMemberList(){
     	return memberList;
     }
@@ -180,7 +188,11 @@ public class mainApp extends Application {
   			}
   		}
 
-  	//Sets the memberList file path
+  	/**
+  	 * Sets the memberList file path
+  	 *
+  	 * @param file	retrieves the file information
+  	 */
   	public void setMemberListFilePath(File file) {
 
   		Preferences prefs = Preferences.userNodeForPackage(mainApp.class);
@@ -194,7 +206,11 @@ public class mainApp extends Application {
   		}
   }
 
-  	//Reads in the memberList
+  	/**
+  	 * Reads in the memberList
+  	 *
+  	 * @param file	retrieves the file information
+  	 */
   	public void loadMemberListFromFile(File file) {
   		try{
   			JAXBContext context = JAXBContext.newInstance(yang.database.model.MemberListWrapper.class,Member.class);
@@ -223,7 +239,11 @@ public class mainApp extends Application {
 
   	}
 
-  	//Writes the memberList to disk
+  	/**
+  	 * Writes the memberList to disk
+  	 *
+  	 * @param file	retrieves the file information
+  	 */
   	public void saveMemberListToFile(File file) {
   		try{
   			JAXBContext context = JAXBContext.newInstance(MemberListWrapper.class);
@@ -253,7 +273,12 @@ public class mainApp extends Application {
 
   	}
 
-  	//Dialog box for adding or editing a member's information
+  	/**
+  	 * Dialog box for adding or editing a member's information
+  	 *
+  	 * @param member	retrieves the information of the selected member
+  	 * @return			whether or not OK was clicked to close the dialog
+  	 */
   	public boolean showMemberEditDialog(Member member) {
   		try {
   			//Loads an FXML document
@@ -285,7 +310,12 @@ public class mainApp extends Application {
   	    }
   	}
 
-  	//Dialog box for exporting a member's email or t-shirt size for external use
+  	/**
+  	 * Dialog box for exporting a member's email or t-shirt size for external use
+  	 *
+  	 * @param member	retrieves the information of the selected member
+  	 * @return			whether or not Done was clicked to close the dialog
+  	 */
   	public boolean showExportDialog(Member member) {
   		try {
   			//Loads an FXML document
@@ -317,6 +347,11 @@ public class mainApp extends Application {
   	    }
   	}
 
+  	/**
+  	 * Window that includes comprehensive information about the current FBLA leadership team
+  	 *
+  	 * @return	whether or not OK was clicked to close the window
+  	 */
   	public boolean showLeadershipInfo() {
   		try {
   			//Loads an FXML file

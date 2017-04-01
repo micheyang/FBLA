@@ -7,12 +7,15 @@
 
 package yang.database.model;
 
+//Adapter classes provide the default implementation of all methods in an event listener interface
+//Mix between regular Java Bean properties (with binding capacity) and JavaFX properties
 import javafx.beans.property.StringProperty;
 
 import javafx.beans.property.SimpleStringProperty;
 
 public class Member {
 
+	//Adapter class memory allocation is applied through the initializations of these fields
 	private final StringProperty memberLastName;
 	private final StringProperty memberFirstName;
 	private final StringProperty memberGenderAndGrade;
@@ -20,10 +23,23 @@ public class Member {
 	private final StringProperty memberPhoneNumber;
 	private final StringProperty memberShirtSize;
 
+	//Default constructor that initializes each field
 	public Member() {
 		this(null, null, null, null, null, null);
 	}
 
+	/**
+	 * Overloaded constructor that takes in every field
+	 * Constructors of the fields are called using SimpleXXXProperty of the JavaFX class types for Properties
+	 * Using 'this' resolves the type match error
+	 *
+	 * @param memberLastName		last name of member
+	 * @param memberFirstName		first name of member
+	 * @param memberGenderAndGrade	the first letter of the gender followed by the grade
+	 * @param memberEmail			email of member
+	 * @param memberPhoneNumber		phone number of member
+	 * @param memberShirtSize		shirt size of member
+	 */
 	public Member(String memberLastName, String memberFirstName, String memberGenderAndGrade, String memberEmail, String memberPhoneNumber, String memberShirtSize) {
 
 		if (memberLastName==null){
@@ -64,6 +80,7 @@ public class Member {
 
 	}
 
+	//PROPERTY getters and setters
 	public String getmemberLastName() {
 		return memberLastName.get();
 	}
@@ -112,7 +129,8 @@ public class Member {
 		this.memberShirtSize.set(memberShirtSize);
 	}
 
-
+	//Property methods (functions) that return the memory address and base type (adapter class) of the specified property
+	//Define the links for the binding and ask for the object the adapter classes bind
 	public StringProperty memberLastNameProperty() {
 		return memberLastName;
 	}

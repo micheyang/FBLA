@@ -33,14 +33,25 @@ public class MemberEditDialogController {
 	private Member member;
 	private boolean okClicked = false;
 
+	//Called right after the FXML file is loaded
     public void initialize() {
 
     }
 
+	/**
+	 * Sets the new dialog stage for the FMXL file to appear in
+	 *
+	 * @param dialogStage	provides the setting for the dialog to appear on
+	 */
     public void setDialogStage(Stage dialogStage) {
     	this.dialogStage = dialogStage;
     }
 
+    /**
+     * Sets the selected member's information into their respective categories
+     *
+     * @param member	retrieves the information of the selected member
+     */
     public void setMember(Member member) {
     	this.member = member;
 
@@ -52,6 +63,7 @@ public class MemberEditDialogController {
     	shirtSizeField.setText(member.getmemberShirtSize());
     }
 
+    //Takes in the any new information that was entered and sets it to the respective field before closing the dialog
     @FXML
     private void handleOk() {
     	if (isInputValid()) {
@@ -68,15 +80,18 @@ public class MemberEditDialogController {
     	}
     }
 
+    //Lets the mainApp know that the OK button was clicked
     public boolean isOkClicked() {
     	return okClicked;
     }
 
+    //Called when the user clicks Cancel
     @FXML
     private void handleCancel() {
     	dialogStage.close();
     }
 
+    //If any of the fields are empty, the respective error messages appear
     private boolean isInputValid(){
     	String errorMessage = "";
 

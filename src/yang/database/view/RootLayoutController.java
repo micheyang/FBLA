@@ -16,24 +16,28 @@ import yang.database.mainApp;
 
 public class RootLayoutController {
 
-	//A reference to the main application:
+	//Reference to the mainApp
 	private mainApp mainApp;
 
-	//This is called by the main application, to give a reference back to itself
-	//@param mainApp
+	/**
+	 * Sets the field for the controller to the mainApp so it can have a pointer to itself
+	 *
+	 * @param mainApp	passes in the main application
+	 */
 	public void setMainApp(mainApp mainApp) {
 		this.mainApp = mainApp;
 	}
 
-	//This creates an empty address book
+	//Creates an new empty list
 	@FXML
 	private void handleNew() {
-		//Clears the sales record with the inherited 'clear method'
-		mainApp.getMemberList().clear();     //Clears the sales record with the inherited clear method
+
+		//Clears the member list that was there initially
+		mainApp.getMemberList().clear();
 		mainApp.setMemberListFilePath(null);
 	}
 
-	//This opens a fileChooser and lets the user select a garage sale record to use
+	//Opens the FileChooser for the user to choose the member list to use
 	@FXML
 	private void handleOpen() {
 		FileChooser fileChooser = new FileChooser();
@@ -52,8 +56,8 @@ public class RootLayoutController {
 		}
 	}
 
-	//This method saves the file to the person file currently open
-	//If there is no open file, the 'save as' dialog fires
+	//Saves the file to the currently open file
+	//If there is no open file, it jumps to the save as method below
 	@FXML
 	private void handleSave() {
 		File personFile = mainApp.getMemberListFilePath();
@@ -64,7 +68,7 @@ public class RootLayoutController {
 			}
 	}
 
-	//The following opens the fileChooser to let the user select the file to save to
+	//Opens the FileChooser for the user to locate and select a file to save the list to
 	@FXML
 	private void handleSaveAs() {
 		FileChooser fileChooser = new FileChooser();
@@ -74,11 +78,11 @@ public class RootLayoutController {
 				"XML files (*.xml)", "*.xml");
 		fileChooser.getExtensionFilters().add(extFilter);
 
-		//Shows 'save file' dialog
+		//Shows dialog to save the file
 		File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
 
 		if (file != null) {
-			//Makes sure the file has the correct extension
+			//Checks that the file has the right extension
 			if (!file.getPath().endsWith(".xml")) {
 				file = new File(file.getPath() + ".xml");
 			}
@@ -86,7 +90,7 @@ public class RootLayoutController {
 		}
 	}
 
-	//Shows the About dialog
+	//Shows short blurb about Future Business Leaders of America
 	@FXML
 	private void handleAboutFBLA() {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -97,6 +101,7 @@ public class RootLayoutController {
 		alert.showAndWait();
 	}
 
+	//Calls the controller class of LeadershipInfo through a method in the mainApp to display a comprehensive dialog of the FBLA Leadership Team
 	@FXML
 	private void handleLeadership() {
 		boolean okClicked = mainApp.showLeadershipInfo();
@@ -105,18 +110,19 @@ public class RootLayoutController {
         }
 	}
 
+	//Mentions the guide that helped me with developing this code
 	@FXML
 	private void handleCredits() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Credits");
 		alert.setHeaderText("About");
-		alert.setContentText("Modified code by Michelle Yang:\nCommander Schenk\nhttp://code.makery.ch");
+		alert.setContentText("Modified code by Michelle Yang:\nhttp://code.makery.ch");
 
 		alert.showAndWait();
 	}
 
 
-	//The application is closed when the user chooses to exit
+	//Closes application when the user selects Exit
 	@FXML
 	private void handleExit() {
 		System.exit(0);
